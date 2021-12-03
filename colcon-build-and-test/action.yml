@@ -2,10 +2,6 @@ name: "colcon-build-and-test"
 description: "Build and test the project"
 
 inputs:
-  os:
-    description: "Operating system"
-    required: false
-    default: ubuntu-latest
   rosdistro:
     description: "ROS distro"
     required: true
