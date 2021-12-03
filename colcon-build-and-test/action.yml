@@ -33,15 +33,15 @@ runs:
     - name: Install curl
       if: ${{ inputs.target-packages != '' }}
       run: |
-        apt-get -y update
-        apt-get -y install curl
+        sudo apt-get -y update
+        sudo apt-get -y install curl
       shell: bash
 
     - name: Install pip
       if: ${{ inputs.target-packages != '' }}
       run: |
-        apt-get -y update
-        apt-get -y install python3-pip
+        sudo apt-get -y update
+        sudo apt-get -y install python3-pip
       shell: bash
 
     - name: Show target packages
@@ -62,7 +62,7 @@ runs:
       run: |
         mkdir dependency_ws
         vcs import dependency_ws < ${{ inputs.build-depends-repos }}
-        apt-get -y update
+        sudo apt-get -y update
         rosdep update
         DEBIAN_FRONTEND=noninteractive rosdep install -y --from-paths . --ignore-src --rosdistro ${{ inputs.rosdistro }}
       shell: bash
