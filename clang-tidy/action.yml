@@ -82,5 +82,5 @@ runs:
     - name: Analyze
       if: ${{ inputs.target-files != '' }}
       run: |
-        clang-tidy -p build/compile_commands.json ${{ inputs.target-files }}
+        clang-tidy -p build/compile_commands.json ${{ inputs.target-files }} -format-style= "$(< ${GITHUB_ACTION_PATH}/.clang-tidy)"
       shell: bash
