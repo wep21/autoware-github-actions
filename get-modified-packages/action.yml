@@ -18,7 +18,7 @@ runs:
     - name: Get modified packages
       id: get-modified-packages
       run: |
-        ${GITHUB_ACTION_PATH}/get-modified-packages/get-modified-packages.sh origin/${{ github.base_ref }}
+        ${GITHUB_ACTION_PATH}/get-modified-packages.sh origin/${{ github.base_ref }}
       shell: bash
 
     - name: Show result
