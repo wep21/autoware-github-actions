@@ -20,8 +20,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set pre-commit-config
+        run: |
+          PRE_COMMIT_CONFIG=${{ inputs.pre-commit-config }}
+          echo "${PRE_COMMIT_CONFIG:=.pre-commit-config.yaml}" >> $GITHUB_ENV
+
       - name: Run pre-commit
         uses: pre-commit/action@v2.0.3
         with:
-          extra_args: "--all-files --config ${{ inputs.pre-commit-config }}"
+          extra_args: "--all-files --config ${PRE_COMMIT_CONFIG}"
           token: ${{ secrets.token }}
