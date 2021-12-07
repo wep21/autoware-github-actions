@@ -1,13 +1,13 @@
-name: "get-self-packages"
-description: "Get the list of self packages"
+name: get-self-packages
+description: Get the list of self packages
 
 outputs:
   self-packages:
-    description: "List of self packages"
+    description: List of self packages
     value: ${{ steps.get-self-packages.outputs.self-packages }}
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2

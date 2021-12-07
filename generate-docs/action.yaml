@@ -1,16 +1,16 @@
-name: "generate-docs"
-description: "Generate documentation for the project"
+name: generate-docs
+description: Generate documentation for the project
 
 inputs:
   version-name:
-    description: "Version name to use in the documentation"
+    description: Version name to use in the documentation
     required: true
   github-access-token:
-    description: "If the repository is private, specify a token."
+    description: If the repository is private, specify a token.
     required: true
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -81,7 +81,7 @@ runs:
       uses: peter-evans/find-comment@v1
       with:
         issue-number: ${{ github.event.pull_request.number }}
-        comment-author: "github-actions[bot]"
+        comment-author: github-actions[bot]
         body-includes: Documentation
 
     - name: Update PR comment

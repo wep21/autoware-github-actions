@@ -1,25 +1,25 @@
-name: "clang-tidy"
-description: "Run clang-tidy on the source files"
+name: clang-tidy
+description: Run clang-tidy on the source files
 
 inputs:
   rosdistro:
-    description: "ROS distro"
+    description: ROS distro
     required: true
   build-depends-repos:
-    description: "VCS repositories containing build dependencies"
+    description: VCS repositories containing build dependencies
     required: true
   target-files:
-    description: "Target files to run clang-tidy on"
+    description: Target files to run clang-tidy on
     required: true
   compile-commands-hash:
     description: Calculated hash of compile_commands.json
     required: true
   github-access-token:
-    description: "If the repository is private, specify a token."
+    description: If the repository is private, specify a token.
     required: false
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout repository
       if: ${{ inputs.target-files != '' }}

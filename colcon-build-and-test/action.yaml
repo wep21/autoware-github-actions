@@ -1,18 +1,18 @@
-name: "colcon-build-and-test"
-description: "Build and test the project"
+name: colcon-build-and-test
+description: Build and test the project
 
 inputs:
   rosdistro:
-    description: "ROS distro"
+    description: ROS distro
     required: true
   build-depends-repos:
-    description: "VCS repositories containing build dependencies"
+    description: VCS repositories containing build dependencies
     required: true
   target-packages:
-    description: "Target packages to build and test"
+    description: Target packages to build and test
     required: true
   github-access-token:
-    description: "If the repository is private, specify a token."
+    description: If the repository is private, specify a token.
     required: false
 outputs:
   compile-commands-hash:
@@ -20,7 +20,7 @@ outputs:
     value: ${{ steps.calc-hash.outputs.hash }}
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2

@@ -28,5 +28,5 @@ jobs:
       - name: Run pre-commit
         uses: pre-commit/action@v2.0.3
         with:
-          extra_args: "--all-files --config ${{ env.PRE_COMMIT_CONFIG }}"
+          extra_args: --all-files --config ${{ env.PRE_COMMIT_CONFIG }}
           token: ${{ secrets.token }}

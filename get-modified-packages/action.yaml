@@ -1,13 +1,13 @@
-name: "get-modified-packages"
-description: "Get a list of modified packages"
+name: get-modified-packages
+description: Get a list of modified packages
 
 outputs:
   modified-packages:
-    description: "List of modified packages"
+    description: List of modified packages
     value: ${{ steps.get-modified-packages.outputs.modified-packages }}
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2

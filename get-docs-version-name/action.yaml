@@ -1,13 +1,13 @@
-name: "get-docs-version-name"
-description: "Get the version name of the docs"
+name: get-docs-version-name
+description: Get the version name of the docs
 
 outputs:
   version-name:
-    description: "The version name of the docs"
+    description: The version name of the docs
     value: ${{ jobs.get-docs-version-name.outputs.version-name }}
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Set version name (push)
       if: ${{ !github.event.pull_request }}

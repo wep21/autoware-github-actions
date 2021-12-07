@@ -1,13 +1,13 @@
-name: "get-modified-source-files"
-description: "Get modified source files"
+name: get-modified-source-files
+description: Get modified source files
 
 outputs:
   modified-source-files:
-    description: "Modified source files"
+    description: Modified source files
     value: ${{ steps.get-modified-source-files.outputs.modified-source-files }}
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -22,9 +22,9 @@ runs:
         modified_files=$(git --no-pager diff --name-only --diff-filter=d origin/"${{ github.base_ref }}"...HEAD)
         modified_source_files=$(echo "$modified_files" | egrep "\.(cpp|hpp)$") || true
         echo ::set-output name=modified-source-files::${modified_source_files}
-      shell: "bash"
+      shell: bash
 
     - name: Show result
       run: |
         echo "modified source files: ${{ steps.get-modified-source-files.outputs.modified-source-files }}"
-      shell: "bash"
+      shell: bash

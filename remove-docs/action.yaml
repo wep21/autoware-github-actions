@@ -1,16 +1,16 @@
-name: "remove-docs"
-description: "Remove documentation files from the project"
+name: remove-docs
+description: Remove documentation files from the project
 
 inputs:
   version-name:
-    description: "Version name to remove from the documentation"
+    description: Version name to remove from the documentation
     required: true
   github-access-token:
-    description: "If the repository is private, specify a token."
+    description: If the repository is private, specify a token.
     required: true
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2
