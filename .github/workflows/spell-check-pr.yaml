@@ -16,10 +16,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set cspell-json-url
+        run: |
+          CSPELL_JSON_URL=${{ inputs.cspell-json-url }}
+          echo "CSPELL_JSON_URL=${CSPELL_JSON_URL:=https://raw.githubusercontent.com/tier4/autoware-spell-check-dict/main/cspell/.cspell.json}" >> $GITHUB_ENV
+
       - name: Retrieve spell check dictionary
         run: |
           curl -fsSL -o .cspell.json \
-            ${{ inputs.cspell-json-url }}
+            ${{ env.CSPELL_JSON_URL }}
 
       - name: Run spell check
         uses: streetsidesoftware/cspell-action@v1.3.5
