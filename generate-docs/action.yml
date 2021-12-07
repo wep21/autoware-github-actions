@@ -2,9 +2,6 @@ name: "generate-docs"
 description: "Generate documentation for the project"
 
 inputs:
-  mkdocs-yaml:
-    description: "Path to the mkdocs.yaml file"
-    required: true
   version-name:
     description: "Version name to use in the documentation"
     required: true
@@ -27,12 +24,19 @@ runs:
         pip3 install -r ${GITHUB_ACTION_PATH}/mkdocs-requirements.txt
       shell: bash
 
+    # TODO: remove after v1.2.0 or v2.0.0 is released
+    - name: (tmp) Install latest mike
+      run: |
+        pip install git+https://github.com/jimporter/mike
+      shell: bash
+
     - name: Remove non-document files
       run: |
         find . -type f \
             -not -path './.git/*' \
             -not -path './.github/*' \
-            -not -path './${{ inputs.mkdocs-yaml }}' \
+            -not -path './mkdocs.yml' \
+            -not -path './mkdocs.yaml' \
             -not -name '*.md' \
             -not -name '*.svg' \
             -not -name '*.png' \
@@ -42,7 +46,8 @@ runs:
 
     - name: Build MkDocs
       run: |
-        mkdocs build -f ${{ inputs.mkdocs-yaml }} --verbose --clean
+        mkdocs-yaml=$(find . -type f -path './mkdocs.yaml' -or -path './mkdocs.yml')
+        mkdocs build -f "$mkdocs-yaml" --verbose --clean
       shell: bash
 
     - name: Set git config
@@ -56,14 +61,16 @@ runs:
     - name: Deploy
       run: |
         git fetch
-        mike deploy -F ${{ inputs.mkdocs-yaml }} --push --rebase ${{ inputs.version-name }}
+        mkdocs-yaml=$(find . -type f -path './mkdocs.yaml' -or -path './mkdocs.yml')
+        mike deploy -F "$mkdocs-yaml" --push --rebase ${{ inputs.version-name }}
       shell: bash
 
     - name: Create comment body
       if: ${{ github.event.pull_request }}
       id: create-comment-body
       run: |
-        site_url=$(grep -oP "site_url:\s+\K(.*)" ${{ inputs.mkdocs-yaml }})
+        mkdocs-yaml=$(find . -type f -path './mkdocs.yaml' -or -path './mkdocs.yml')
+        site_url=$(grep -oP "site_url:\s+\K(.*)" "$mkdocs-yaml")
         base_url="${site_url}/pr-${{ github.event.pull_request.number }}/"
         ${GITHUB_ACTION_PATH}/create-doc-comment.sh "${base_url}" "origin/${{ github.event.pull_request.base.ref }}"
       shell: bash
