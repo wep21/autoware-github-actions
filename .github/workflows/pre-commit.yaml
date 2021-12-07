@@ -23,7 +23,7 @@ jobs:
       - name: Set pre-commit-config
         run: |
           PRE_COMMIT_CONFIG=${{ inputs.pre-commit-config }}
-          echo "${PRE_COMMIT_CONFIG:=.pre-commit-config.yaml}" >> $GITHUB_ENV
+          echo "PRE_COMMIT_CONFIG=${PRE_COMMIT_CONFIG:=.pre-commit-config.yaml}" >> $GITHUB_ENV
 
       - name: Run pre-commit
         uses: pre-commit/action@v2.0.3
